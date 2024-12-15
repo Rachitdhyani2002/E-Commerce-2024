@@ -1,8 +1,9 @@
 import productModel from '../database/models/productModel.js'
-import stripePackage from 'stripe'
+import Stripe from 'stripe'
+import dotenv from 'dotenv';
+dotenv.config()
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-//Initializing Stripe
-const stripe = stripePackage(process.env.STRIPE_SECRET_KEY)
 
 
 //Add product function
@@ -35,30 +36,41 @@ export const getProductsController = async(req,res)=>{
     }
 }
 
-//Products Payment Function
-export const createPaymentController =async(req,res)=>{
+//Payment Integration
+export const paymentController=async(req,res)=>{
     try {
-        const session = await stripe.checkout.sessions.create({
-          payment_method_types: ['card'],
-          line_items: req.body.items.map((item) => ({
+        const { products } = req.body;
+
+        if (!products || !products.length) {
+            return res.status(400).json({ message: 'No products provided' });
+        }
+
+        // Create line items for the checkout session
+        const lineItems = products.map((product) => ({
             price_data: {
-              currency: 'usd',
-              product_data: {
-                name: item.name,
-              },
-              unit_amount: item.price * 100, // price in cents
+                currency: 'inr',
+                product_data: {
+                    name: product.title,
+                    description: product.description || 'No description provided',
+                },
+                unit_amount: Math.round(product.price * 100), 
             },
-            quantity: item.quantity,
-          })),
-          mode: 'payment',
-          success_url: `${req.headers.origin}/success`,
-          cancel_url: `${req.headers.origin}/cancel`,
+            quantity: product.quantity,
+        }));
+
+        // Create the checkout session
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            mode: 'payment',
+            line_items: lineItems,
+            success_url: 'http://localhost:3000/success', // Redirect after success
+            cancel_url: 'http://localhost:3000/cancel',   // Redirect after cancellation
         });
-    
+
         res.json({ id: session.id });
-      } catch (error) {
-        console.error("Error creating payment session:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-      }
-    
+    } catch (error) {
+        console.error('Error creating checkout session:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+
 }

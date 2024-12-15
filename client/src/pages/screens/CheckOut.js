@@ -2,72 +2,57 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import { loadStripe } from '@stripe/stripe-js';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { Box } from '@mui/material';
 
-// Initialize Stripe with your publishable key
-const stripePromise = loadStripe("pk_test_your_publishable_key_here");
+
 
 const Checkout = () => {
     const location = useLocation();
     const { items, totalAmount } = location.state || { items: [], totalAmount: 0 };
-
     // Handle payment
     const handlePayment = async () => {
-        const stripe = await stripePromise;
-        
-        const lineItems = items.map(item => ({
-            price:{
-                currency: 'usd',
-                product_data: {
-                    name: item.title,
-                },
-                unit_amount: item.price  
-            },
-            quantity: item.quantity,
-        }));
-
-        try {
-            const { error } = await stripe.redirectToCheckout({
-                lineItems: lineItems,
-                mode: 'payment',
-                successUrl: window.location.origin + '/success',
-                cancelUrl: window.location.origin + '/cancel',
-            });
-
-            if (error) {
-                console.error('Error processing payment:', error);
-            }
-        } catch (error) {
-            console.error('Error processing payment:', error);
+         const stripe = await loadStripe('pk_test_51Q2XeyRvEDrF3VE5nmtz81szOS4g3xzPr4O2mCBBR57vZbzDbh3W5OEs2Ur7OICeN8m4B8WziiBfOsgEoxuDMbCy00I4pQfBKP')
+         const body ={products : items}
+         const headers ={"Content-Type":"application/json"}
+         const response = await fetch(`${process.env.REACT_APP_API}/api/v1/products/payment`,{method:"POST",headers,body:JSON.stringify(body)})
+         const session = await response.json()
+         const result = stripe.redirectToCheckout({
+            sessionId:session.id
+         })
+         console.log(result)
+         if (result.error) {
+            console.error("Stripe checkout error:", result.error.message);
         }
+        
     };
 
     return (
         <Layout>
             <Box sx={{ display: "flex", justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <Box sx={{ width: "50%", background: 'black', padding: "40px", borderRadius: "10px" }}>
-                    <h1 style={{ color: 'white', fontWeight: "100", fontSize: "50px" }}>
-                        Checkout <LocalShippingIcon sx={{ fontSize: '50px' }} />
+                <Box sx={{ width: "50%", background: '#f9f9f9', padding: "40px", borderRadius: "10px" }}>
+                    <h1 style={{ color: '#c30c2c', fontWeight: "400", fontSize: "30px" }}>
+                   Payment Confirmation
                     </h1>
+                    <p style={{fontSize:"14px"}}>Click on proceed to payment button to successfully purchase the items</p>
                     {items.length > 0 ? (
                         <div style={{ margin: "10px", padding: '10px' }}>
-                            {items.map(item => (
-                                <div key={item._id} style={{ border: '1px solid white', borderRadius: "10px", margin: "5px" }}>
-                                    <p style={{ color: 'white', fontWeight: '100', fontSize: '15px', margin: '10px' }}>
-                                        {item.title} - {item.quantity} x ${item.price}
-                                    </p>
-                                </div>
-                            ))}
-                            <h2 style={{ color: 'white', fontWeight: '100', margin: "15px", fontSize: "20px" }}>
-                                Total Amount: ${totalAmount}
+                            <h2 style={{ color: 'black', fontWeight: '100', margin: "15px", fontSize: "18px" }}>
+                                Total Payable Amount: ${totalAmount}
                             </h2>
                             <button
-                                style={{ padding: '10px', border: 'none', outline: 'none', width: "98%", borderRadius: "10px" }}
+                                style={{ padding: '10px', border: 'none', outline: 'none', width: "300px", borderRadius: "20px",background:"#353935",color:"white",margin:"10px" }}
                                 onClick={handlePayment}
                             >
                                 Proceed to Payment
                             </button>
+                            
+                            <button
+                                style={{ padding: '10px', border: 'none', outline: 'none', width: "300px", borderRadius: "20px",background:"#353935",color:"white" }}
+                        
+                            >
+                                Go Back To Cart
+                            </button>
+
                         </div>
                     ) : (
                         <p>Your cart is empty.</p>

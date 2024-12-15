@@ -8,9 +8,10 @@ import AddProduct from './pages/admin/AddProduct';
 import Products from './pages/screens/Products';
 import Cart from './pages/screens/Cart';
 import ForgetPasswordForm from './pages/auth/ForgetPasswordForm';
-import ContactForm from './pages/auth/ContactForm';
 import CheckOut from './pages/screens/CheckOut';
 import Cancel from './pages/screens/Cancel';
+import Success from './pages/screens/Success';
+import About from './pages/screens/About';
 
 function App() {
   return (
@@ -24,11 +25,11 @@ function App() {
             <Route path='/admin' element={<Admin/>}/>
             <Route path='/cart' element={<Cart/>}/>
             <Route path='/forget-password' element={<ForgetPasswordForm/>}/>
-            <Route path='/contact' element={<ContactForm/>}/>
+            <Route path='/about' element={<About/>}/>
             <Route path='/add-product' element={<AddProduct/>}/>
             <Route path='/checkout' element={<CheckOut/>}/>
             <Route path='/cancel' element={<Cancel/>}/>
-
+            <Route path='/success' element={<Success/>}/>
           </Routes>
         </BrowserRouter>
      

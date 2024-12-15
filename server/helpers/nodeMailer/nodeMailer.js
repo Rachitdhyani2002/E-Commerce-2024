@@ -26,7 +26,7 @@ export const sendToAdmin = async(email, query) => {
         })
         .catch(error => {
             console.error('Error sending email:', error);
-            throw error;  // Rethrow to handle in the controller
+            throw error;  
         });
 };
 

@@ -3,10 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppBar, Box, IconButton, Toolbar, Typography, Drawer, List, ListItem, ListItemText, Button } from '@mui/material';
 import TipsAndUpdatesSharpIcon from '@mui/icons-material/TipsAndUpdatesSharp';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
-import toast from 'react-hot-toast'
 import WatchSharpIcon from '@mui/icons-material/WatchSharp';
 import { useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
 
 
 
@@ -34,11 +32,11 @@ const Header = () => {
 
   const menuItems = user 
   ? [
-      { text: 'Home', path: '/home' },
-      { text: 'Products', path: '/products' },
-      { text: 'Contact', path: '/contact' },
-      { text:  `Cart (${numberOfProducts})` ,path:'/cart'},
-      ...(user.role ===1 ? [{ text: 'Admin', path: '/admin' }]:[])
+      { text: 'HOME', path: '/home' },
+      { text: 'PRODUCTS', path: '/products' },
+      { text: 'ABOUT US', path: '/about' },
+      { text:  `CART (${numberOfProducts})` ,path:'/cart'},
+      ...(user.role ===1 ? [{ text: 'ADMIN', path: '/admin' }]:[])
     ]
   : [
       { text: 'SIGN UP', path: '/register' },
@@ -48,22 +46,20 @@ const Header = () => {
   return (
     <>
       <AppBar position="static" style={{background:"transparent"}}>
-        <Toolbar>
-          <IconButton size="large" edge="start" color="inherit" aria-label="logo" sx={{ display: { xs: 'none', md: 'flex' },color:"#101820" }}>
-            <WatchSharpIcon/>
-          </IconButton>
-          <Typography variant="h5" sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },letterSpacing:"1px",color:"#101820"}}>
-            <span style={{fontWeight:"100"}}><span style={{color:"black",fontSize:"35px"}}>TITAN</span></span>
+        <Toolbar sx={{display:"flex",flexDirection:"column",marginTop:"10px",padding:"10px"}}>
+          <Typography variant="h5" sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },letterSpacing:"1px",color:"#101820",flexDirection:"column"}}>
+            <span style={{fontWeight:"100"}}><span style={{color:"#c30c2c",fontSize:"30px"}}>Odysseus</span></span>
+            <p style={{fontSize:"10px"}}>watches</p>
           </Typography>
-          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' },gap:"60px" }}>
             {menuItems.map((item, index) => (
-              <Link key={index} to={item.path} style={{ margin: '0 10px',textDecoration:"none",fontFamily: "'Playfair Display',serif",color:"#00246B",fontSize:'20px',fontWeight:"100" }}>
+              <Link key={index} to={item.path} style={{ margin: '0 10px',textDecoration:"none",color:"black",fontSize:'18px',fontWeight:"100" }}>
                 {item.text}
               </Link>
             ))}
+            { user?<Button sx={{background:"white",color:"black",border:"0.1px solid black",width:"200px",'&:hover': { backgroundColor: '#c30c2c',color:"white",boxShadow: 'none',border:"none",transition: "background-color 0.8s ease-in"}}} onClick={handleLogOut}>Log out</Button>:""}
           </Box>
        
-         { user?<Button sx={{background:"black",color:"white",p:1,width:"100px",ml:2,'&:hover': { backgroundColor: 'black',  boxShadow: 'none',}}} onClick={handleLogOut}>Log out</Button>:""}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton size="large" edge="start" color="inherit" onClick={handleDrawerOpen}>
               <MenuSharpIcon />

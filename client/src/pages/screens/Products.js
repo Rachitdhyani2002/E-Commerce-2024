@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../../redux/productsSlice';
 import { Checkbox, FormControlLabel, Paper } from '@mui/material';
 import { addToCart } from '../../redux/cartSlice';
-import ClipLoader from 'react-spinners/HashLoader'
+import Fade from 'react-reveal/Fade'
+import Zoom from 'react-reveal/Zoom'
 
 
 const Products = () => {
@@ -19,14 +20,12 @@ const Products = () => {
   if (loading) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh',flexDirection:"column",gap:"10px"}}>
-        <ClipLoader color="#8AAAE5" loading={loading} size={150} />
+        <img src='https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw700'/>
       </div>
     );
   }
 
-  if (error) {
-    return <h4>{error.message}</h4>;
-  }
+  if (error) { return <h4>{error.message}</h4>;}
 
   const handleCategoryChange = (category) => {
     setSelectedCategory((previousCategory) =>
@@ -34,9 +33,7 @@ const Products = () => {
     );
   };
 
-  const filteredProducts = selectedCategory
-    ? products.filter((item) => item.category === selectedCategory)
-    : products;
+  const filteredProducts = selectedCategory?products.filter((item) => item.category === selectedCategory):products;
 
   return (
     <Layout>
@@ -62,7 +59,8 @@ const Products = () => {
             minHeight: '100vh',
           }}
         >
-          <h6>Filter By Category</h6>
+           <Fade left>
+          <h6 style={{color:"#c30c2c"}}>Filter By Category</h6>
           <FormControlLabel
             control={
               <Checkbox
@@ -99,6 +97,7 @@ const Products = () => {
             }
             label="Sports"
           />
+          </Fade>
         </Paper>
 
         {/* Products List */}
@@ -118,6 +117,7 @@ const Products = () => {
           }}
         >
           {filteredProducts.map((item) => (
+            <Zoom>
             <div
               key={item._id}
               style={{
@@ -140,13 +140,13 @@ const Products = () => {
                 style={{ objectFit: 'cover', marginBottom: '10px' }}
               />
               <h6>{item.title}</h6>
-              <p style={{ fontSize: '15px', marginBottom: '0' }}>
+              <p style={{ fontSize: '15px', marginBottom: '0'}}>
                 Price: ${item.price}
               </p>
               <p style={{ fontSize: '15px' }}>Category: {item.category}</p>
               <button onClick={()=>dispatch(addToCart(item))}
                 style={{
-                  background: 'black',
+                  background: '#353935',
                   color: 'white',
                   border: 'none',
                   outline: 'none',
@@ -159,6 +159,7 @@ const Products = () => {
                 Add To Cart
               </button>
             </div>
+            </Zoom>
           ))}
         </div>
       </div>

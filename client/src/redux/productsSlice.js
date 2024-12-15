@@ -8,7 +8,7 @@ const initialState ={
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts',async()=>{
     try{
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 3000));
         const response = await axios.get(`${process.env.REACT_APP_API}/api/v1/products/get-products`)
         return response.data
 
