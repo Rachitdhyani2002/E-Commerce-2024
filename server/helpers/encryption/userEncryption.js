@@ -1,5 +1,5 @@
 //Import Statement
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 //Hashing Password Function
 export const hashPassword = async (password) => {

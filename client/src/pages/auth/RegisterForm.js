@@ -22,12 +22,13 @@ const RegisterForm = () => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/register`, { name, email, password, contact })
             if (response.data.success == true) {
-                navigate('/home')
+                navigate('/')
             }
             else { alert("Something went wrong") }
         }
         catch (error) {
             console.error(error)
+            alert(error.response.data.message)
         }
     }
     return (
