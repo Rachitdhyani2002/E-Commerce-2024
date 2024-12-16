@@ -25,7 +25,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: ["https://deploy-mern-1whq.vercel.app"],
+    origin: "https://e-commerce-2024-frontend.onrender.com",
     methods: 'GET,POST,DELETE,PUT',
     credentials: true,
     allowedHeaders: 'Content-Type, Authorization',
