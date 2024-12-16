@@ -1,21 +1,21 @@
 import React from 'react'
 import Layout from '../../components/Layout'
 import { Box } from '@mui/material'
-import Fade from 'react-reveal/Fade'
+
 
 const About = () => {
     return (
         <Layout>
             <Box sx={{ display: 'flex', flexDirection: 'row', padding: "50px", margin: "60px", height: '600px', alignItems: 'center', justifyContent: 'center' }}>
                 <Box sx={{ p: 10, display: "flex", justifyContent: "center", alignItems: "center", flexDirection: 'column', textAlign: "left", background: 'white' }}>
-                     <Fade left>
+                     
                      <span style={{ fontWeight: "100" }}><span style={{ color: "#c30c2c", fontSize: "80px" }}>Odysseus</span></span>
                      <p style={{ marginTop: "1px", fontSize: '12px', letterSpacing: '2px' }}>India's No.1 Watches Brand </p>
-                     </Fade>
+                     
                     
                 </Box>
                 <Box sx={{ background: 'white', width: '200', margin: "20px", padding: "50px" }}>
-                    <Fade right>
+                    
                     <h3 style={{ fontWeight: "100" }}>ABOUT US</h3>
                     <p style={{ textAlign: 'justify' }}>
                         At <span><span style={{ color: "#c30c2c", fontSize: "30px" }}>Odysseus</span></span> we believe a watch is more than just a timekeeper—it’s a statement of style, precision, and personality. Founded with a vision to create world-class timepieces, Titan has redefined craftsmanship and innovation since our inception. With decades of experience, we have emerged as a leading name in the global watch industry, known for our impeccable designs and unwavering commitment to quality.
@@ -26,7 +26,7 @@ const About = () => {
 
                         Explore the world of Titan, where time meets timelessness.
                     </p>
-                    </Fade>
+                    
                     
                 </Box>
             </Box>
