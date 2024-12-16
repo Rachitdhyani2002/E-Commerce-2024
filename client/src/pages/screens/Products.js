@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../../redux/productsSlice';
 import { Checkbox, FormControlLabel, Paper } from '@mui/material';
 import { addToCart } from '../../redux/cartSlice';
-import Fade from 'react-reveal/Fade'
-import Zoom from 'react-reveal/Zoom'
+
 
 
 const Products = () => {
@@ -59,7 +58,7 @@ const Products = () => {
             minHeight: '100vh',
           }}
         >
-           <Fade left>
+           
           <h6 style={{color:"#c30c2c"}}>Filter By Category</h6>
           <FormControlLabel
             control={
@@ -97,7 +96,7 @@ const Products = () => {
             }
             label="Sports"
           />
-          </Fade>
+          
         </Paper>
 
         {/* Products List */}
@@ -117,7 +116,7 @@ const Products = () => {
           }}
         >
           {filteredProducts.map((item) => (
-            <Zoom>
+            
             <div
               key={item._id}
               style={{
@@ -159,7 +158,7 @@ const Products = () => {
                 Add To Cart
               </button>
             </div>
-            </Zoom>
+            
           ))}
         </div>
       </div>
