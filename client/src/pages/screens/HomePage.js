@@ -19,8 +19,6 @@ const Homepage = () => {
   const token = Cookies.get('refreshToken')
   const navigate = useNavigate();
 
-
-
   // Redirect to login if user is not logged in
   useEffect(() => {
     if (!user && !token) {
@@ -28,117 +26,377 @@ const Homepage = () => {
     }
   }, [user, token, navigate]);
 
-  const handleNavigation = () => {
-    navigate('/products')
-  }
+  //Handle Navigation Function
+  const handleNavigation = () => { navigate('/products') }
 
 
   return (
     <Layout>
-      <Box sx={{ display: "flex", flexDirection: "column", padding: "40px", margin: "40px" }}>
-        <Box sx={{ padding: "40px", margin: "20px" }}>
-          <h3 style={{ color: "#2E2E2E", fontWeight: "100", marginBottom: "30px", fontSize: "20px", fontFamily: "font-family: 'Futura', 'Avenir', sans-serif", letterSpacing: "5px" }}>DIVER 300</h3>
-          <h1 style={{ color: '#c30c2c', fontSize: "40px", fontWeight: "400", fontFamily: "font-family: 'Futura', 'Avenir', sans-serif", letterSpacing: '8px' }}>PRECISION POWER POISE</h1>
-          <h4 style={{ fontWeight: "300", fontSize: "20px", marginTop: "40px", fontFamily: "font-family: 'Futura', 'Avenir', sans-serif", color: "#2E2E2E", letterSpacing: '1px' }}>The Seamaster Diver 300M continues its legacy with models made for the adventures in you. Dive deeper go further</h4>
-          <Button onClick={handleNavigation} sx={{ border: "1px solid grey", outline: "none", padding: "10px", background: "white", color: "black", margin: "20px", width: "300px", height: "60px", '&:hover': { backgroundColor: '#c30c2c', color: "white", boxShadow: 'none', border: "none", transition: "background-color 0.8s ease-in" } }}>DISCOVER THE COLLECTION</Button>
-        </Box>
 
-        <Box sx={{ display: "flex", flexDirection: "row", gap: "50px", marginTop: "50px", justifyContent: "center" }}>
-          <img src={image1} width={500} height={400} style={{ marginTop: '200px', borderRadius: "10px" }} />
-          <img src={image2} width={500} height={400} style={{ borderRadius: "10px" }} />
+      {/* Container1 */}
+      <Box sx={styles.container}>
+        <Box sx={styles.collection}>
+          <h3 style={styles.collectionHeadingFirst}>DIVER 300</h3>
+          <h1 style={styles.collectionHeadingSecond}>PRECISION POWER POISE</h1>
+          <h4 style={styles.collectionHeadingThird}>The SeaMaster Diver 300M continues its legacy with models made for the adventures in you. Dive deeper go further</h4>
+          <Button onClick={handleNavigation} sx={styles.collectionButton}>DISCOVER THE COLLECTION</Button>
+        </Box>
+        <Box sx={styles.watchImageBox}>
+          <img src={image1} width={500} height={400} style={styles.watchImageBoxImageFirst} />
+          <img src={image2} width={500} height={400} style={styles.watchImageBoxImageSecond} />
         </Box>
       </Box>
+      {/* Container1 */}
 
-      <Box sx={{ display: "flex", flexDirection: "row", padding: "30px", margin: "40px", justifyContent: "center", gap: "40px" }}>
-        <Box sx={{ display: "flex", justifyContent: 'center', flexDirection: "column", width: "35%" }}>
-          <h1 style={{ color: '#c30c2c', fontSize: "45px", fontWeight: "400", fontFamily: "font-family: 'Futura', 'Avenir', sans-serif", letterSpacing: '8px', textAlign: "left" }}>FIND THE PERFECT GIFT</h1>
-          <h4 style={{ fontWeight: "300", fontSize: "20px", marginTop: "40px", fontFamily: "font-family: 'Futura', 'Avenir', sans-serif", color: "#2E2E2E", letterSpacing: '1px', textAlign: "left" }}>If you know who you're buying for and why, our Gift Finder will help you find the perfect present in just a few clicks.</h4>
-          <Button onClick={handleNavigation} sx={{ border: "1px solid grey", outline: "none", padding: "10px", background: "white", color: "black", marginTop: "20px", width: "320px", height: "60px", '&:hover': { backgroundColor: '#c30c2c', color: "white", boxShadow: 'none', border: "none", transition: "background-color 0.8s ease-in" } }}>FIND YOUR GIFT</Button>
+
+      {/* Container2 */}
+      <Box sx={styles.giftCollectionBox}>
+        <Box sx={styles.giftCollectionBoxText}>
+          <h1 style={styles.giftCollectionBoxTextHeadingFirst}>FIND THE PERFECT GIFT</h1>
+          <h4 style={styles.giftCollectionBoxTextHeadingSecond}>If you know who you're buying for and why, our Gift Finder will help you find the perfect present in just a few clicks.</h4>
+          <Button onClick={handleNavigation} sx={styles.giftCollectionBoxTextButton}>FIND YOUR GIFT</Button>
         </Box>
         <img src={gif} width={400} height={400} />
       </Box>
+      {/* Container2 */}
 
-      <Box sx={{ display: 'flex', flexDirection: 'row', padding: "50px", margin: "60px", height: '600px', alignItems: 'center', justifyContent: 'center' }}>
 
-        <Box sx={{ p: 10, display: "flex", justifyContent: "center", alignItems: "center", flexDirection: 'column', textAlign: "left", background: 'white' }}>
-        
-            <span style={{ fontWeight: "100" }}><span style={{ color: "#c30c2c", fontSize: "80px" }}>Odysseus</span></span>
-            <p style={{ marginTop: "1px", fontSize: '12px', letterSpacing: '2px' }}>India's No.1 Watches Brand </p>
-          
+      {/* Container3 */}
+      <Box sx={styles.aboutUsContainer}>
+        <Box sx={styles.aboutUsContainerHeading}>
+            <span style={styles.aboutUsContainerHeadingFirst}>Odysseus</span>
+            <p style={styles.aboutUsContainerHeadingSecond}>India's No.1 Watches Brand </p>
         </Box>
-
-        <Box sx={{ background: 'white', width: '200', margin: "20px", padding: "50px" }}>
-          
+        <Box sx={styles.aboutUsContainerText}>
             <h3 style={{ fontWeight: "100" }}>ABOUT US</h3>
             <p style={{ textAlign: 'justify' }}>
               At <span><span style={{ color: "#c30c2c", fontSize: "30px" }}>Odysseus</span></span> we believe a watch is more than just a timekeeper—it’s a statement of style, precision, and personality. Founded with a vision to create world-class timepieces, Titan has redefined craftsmanship and innovation since our inception. With decades of experience, we have emerged as a leading name in the global watch industry, known for our impeccable designs and unwavering commitment to quality.
-
               Each <span><span style={{ color: "#c30c2c" }}>Odysseus</span></span> watch is a fusion of cutting-edge technology and timeless elegance. Our collections range from sleek and minimal to bold and luxurious, catering to diverse tastes and occasions. Whether you're seeking a sophisticated accessory for a formal event or a durable companion for your adventures, Titan has the perfect watch to reflect your individuality.
-
               Our mission is simple: to craft watches that inspire confidence, embody precision, and stand the test of time. As we continue to evolve, we remain dedicated to innovation, sustainability, and delivering exceptional experiences to our customers worldwide.
-
               Explore the world of Titan, where time meets timelessness.
             </p>
-          
-
         </Box>
-
-
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "row", padding: "30px", marginBottom: "80px", justifyContent: "center", gap: "40px" }}>
+      {/* Container3 */}
+      
+
+       {/* Container4 */}
+      <Box sx={styles.newContainer}>
         <Box sx={{ display: "flex", justifyContent: 'center', flexDirection: "column", width: "35%" }}>
-          <h1 style={{ color: '#c30c2c', fontSize: "45px", fontWeight: "400", fontFamily: "font-family: 'Futura', 'Avenir', sans-serif", letterSpacing: '8px', textAlign: "left" }}>NEW LOOK FOR YOUR WATCH</h1>
-          <h4 style={{ fontWeight: "300", fontSize: "20px", marginTop: "40px", fontFamily: "font-family: 'Futura', 'Avenir', sans-serif", color: "#2E2E2E", letterSpacing: '1px', textAlign: "left" }}>Your watch and strap should go together perfectly, but that doesn't mean you can't experiment with different combinations. Why not mix things up and see what happens? You may discover a look that's as individual as you are.</h4>
-          <Button onClick={handleNavigation} sx={{ border: "1px solid grey", outline: "none", padding: "10px", background: "white", color: "black", marginTop: "20px", width: "320px", height: "60px", '&:hover': { backgroundColor: '#c30c2c', color: "white", boxShadow: 'none', border: "none", transition: "background-color 0.8s ease-in" } }}>SHOP THE COLLECTION</Button>
+          <h1 style={styles.newContainerHeadingFirst}>NEW LOOK FOR YOUR WATCH</h1>
+          <h4 style={styles.newContainerHeadingSecond}>Your watch and strap should go together perfectly, but that doesn't mean you can't experiment with different combinations. Why not mix things up and see what happens? You may discover a look that's as individual as you are.</h4>
+          <Button onClick={handleNavigation} sx={styles.newContainerButton}>SHOP THE COLLECTION</Button>
         </Box>
         <img src={gif1} width={400} height={400} />
       </Box>
+       {/* Container4 */}
 
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: "150px", marginBottom: "100px" }}>
-        
-          <h1 style={{ color: '#c30c2c', fontSize: "45px", fontWeight: "400", fontFamily: "font-family: 'Futura', 'Avenir', sans-serif", letterSpacing: '5px', marginBottom: '50px' }}>NEWS & STORIES</h1>
 
-        
-        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: "20px" }}>
-          <Box sx={{ padding: "10px", width: '30%' }}>
-            
+          {/* Container4 */}
+      <Box sx={styles.newsContainer}>
+        <h1 style={styles.newsContainerHeadingFirst}>NEWS & STORIES</h1>
+        <Box sx={styles.newsContainerBox}>
+          <Box sx={styles.newsContainerBoxFirst}>
               <img src={image3} width={400} height={300} style={{ borderRadius: '10px' }} />
-              <p style={{ color: "#c30c2c", textAlign: "left", fontSize: '12px', marginTop: "15px" }}>SPORTS</p>
-              <h4 style={{ color: "#c30c2c", textAlign: "left", fontWeight: "100", marginTop: '30px' }}>WILL CHARLES WINS IN LONDON</h4>
-              <p style={{ textAlign: "left", color: "#2E2E2E", marginTop: "20px" }}>Odysseus CEO WILL CHARLES has finished the golf season as the race to London Champion</p>
-            
-
+              <p style={styles.newsContainerBoxFirstHeadingOne}>SPORTS</p>
+              <h4 style={styles.newsContainerBoxFirstHeadingSecond}>WILL CHARLES WINS IN LONDON</h4>
+              <p style={styles.newsContainerBoxFirstHeadingThird}>Odysseus CEO WILL CHARLES has finished the golf season as the race to London Champion</p>
           </Box>
-          <Box sx={{ padding: "10px", width: '30%' }}>
-            
+          <Box sx={styles.newsContainerBoxSecond}>
               <img src={image4} width={400} height={300} style={{ borderRadius: '10px' }} />
-              <p style={{ color: "#c30c2c", textAlign: "left", fontSize: '12px', marginTop: "15px" }}>SPORTS</p>
-              <h4 style={{ color: "#c30c2c", textAlign: "left", fontWeight: "100", marginTop: '30px' }}>ODYSSEUS IS HOSTING SPORT CUP </h4>
-              <p style={{ textAlign: "left", color: "#2E2E2E", marginTop: "20px" }}>After the successful host of golfing events now we are hosting charitable sports events</p>
-            
-
+              <p style={styles.newsContainerBoxSecondHeadingFirst}>SPORTS</p>
+              <h4 style={styles.newsContainerBoxFirstHeadingSecond}>ODYSSEUS IS HOSTING SPORT CUP </h4>
+              <p style={styles.newsContainerBoxFirstHeadingThird}>After the successful host of golfing events now we are hosting charitable sports events</p>
           </Box>
-          <Box sx={{ padding: "10px", width: '30%' }}>
-            
+          <Box sx={styles.newsContainerBoxThird}>
               <img src={image5} width={400} height={300} style={{ borderRadius: '10px' }} />
-              <p style={{ color: "#c30c2c", textAlign: "left", fontSize: '12px', marginTop: "15px" }}>SPORTS</p>
-              <h4 style={{ color: "#c30c2c", textAlign: "left", fontWeight: "100", marginTop: '30px' }}>NEERAJ JOINS ODYSSEUS WATCHES</h4>
-              <p style={{ textAlign: "left", color: "#2E2E2E", marginTop: "20px" }}>Neeraj Chopra is going to be the new face of our ODYSSEUS watches</p>
-            
-
+              <p style={styles.newsContainerBoxThirdHeadingFirst}>SPORTS</p>
+              <h4 style={styles.newsContainerBoxThirdHeadingSecond}>NeeRAJ JOINS ODYSSEUS WATCHES</h4>
+              <p style={styles.newsContainerBoxThirdHeadingThird}>NeeRaj Chopra is going to be the new face of our ODYSSEUS watches</p>
           </Box>
         </Box>
       </Box>
-
-
-
-
-
-
-
+       {/* Container4 */}
 
     </Layout>
   );
 };
 
 export default Homepage;
+
+//Styles
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    padding: "40px",
+    margin: "40px"
+  },
+  collection: {
+    padding: "40px",
+    margin: "20px"
+  },
+  collectionHeadingFirst: {
+    color: "#2E2E2E",
+    fontWeight: "100",
+    marginBottom: "30px",
+    fontSize: "20px",
+    fontFamily: "font-family: 'Futura', 'Avenir', sans-serif",
+    letterSpacing: "5px"
+  },
+  collectionHeadingSecond: {
+    color: '#c30c2c',
+    fontSize: "40px",
+    fontWeight: "400",
+    fontFamily: "font-family: 'Futura', 'Avenir', sans-serif",
+    letterSpacing: '8px'
+  },
+  collectionHeadingThird: {
+    fontWeight: "300",
+    fontSize: "20px",
+    marginTop: "40px",
+    fontFamily: "font-family: 'Futura', 'Avenir', sans-serif",
+    color: "#2E2E2E",
+    letterSpacing: '1px'
+  },
+  collectionButton: {
+    border: "1px solid grey",
+    outline: "none",
+    padding: "10px",
+    background: "white",
+    color: "black",
+    margin: "20px",
+    width: "300px",
+    height: "60px",
+    '&:hover': {
+      backgroundColor: '#c30c2c',
+      color: "white",
+      boxShadow: 'none',
+      border: "none",
+      transition: "background-color 0.8s ease-in"
+    }
+  },
+  watchImageBox: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "50px",
+    marginTop: "50px",
+    justifyContent: "center"
+  },
+  watchImageBoxImageFirst: {
+    marginTop: '200px',
+    borderRadius: "10px"
+  },
+  watchImageBoxImageSecond: {
+    borderRadius: "10px"
+  },
+  giftCollectionBox: {
+    display: "flex",
+    flexDirection: "row",
+    padding: "30px",
+    margin: "40px",
+    justifyContent: "center",
+    gap: "40px"
+  },
+  giftCollectionBoxText: {
+    display: "flex",
+    justifyContent: 'center',
+    flexDirection: "column",
+    width: "35%"
+  },
+  giftCollectionBoxTextHeadingFirst: {
+    color: '#c30c2c',
+    fontSize: "45px",
+    fontWeight: "400",
+    fontFamily: "font-family: 'Futura', 'Avenir', sans-serif",
+    letterSpacing: '8px',
+    textAlign: "left"
+  },
+  giftCollectionBoxTextHeadingSecond: {
+    fontWeight: "300",
+    fontSize: "20px",
+    marginTop: "40px",
+    fontFamily: "font-family: 'Futura', 'Avenir', sans-serif",
+    color: "#2E2E2E",
+    letterSpacing: '1px',
+    textAlign: "left"
+  },
+  giftCollectionBoxTextButton: {
+    border: "1px solid grey",
+    outline: "none",
+    padding: "10px",
+    background: "white",
+    color: "black",
+    marginTop: "20px",
+    width: "320px",
+    height: "60px",
+    '&:hover': { backgroundColor: '#c30c2c',
+                color: "white",
+                boxShadow: 'none',
+                border: "none",
+                transition: "background-color 0.8s ease-in"
+               }
+  },
+  aboutUsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    padding: "50px",
+    margin: "60px",
+    height: '600px',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  aboutUsContainerHeading: {
+    p: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: 'column',
+    textAlign: "left",
+    background: 'white'
+  },
+  aboutUsContainerHeadingFirst: {
+    color: "#c30c2c",
+    fontSize: "80px",
+    fontWeight: "100",
+  },
+  aboutUsContainerHeadingSecond: {
+    marginTop: "1px",
+    fontSize: '12px',
+    letterSpacing: '2px'
+  },
+  aboutUsContainerText: {
+    background: 'white',
+    width: '200',
+    margin: "20px",
+    padding: "50px"
+  },
+  newContainer: {
+    display: "flex",
+    flexDirection: "row",
+    padding: "30px",
+    marginBottom: "80px",
+    justifyContent: "center",
+    gap: "40px"
+  },
+  newContainerHeadingFirst: {
+    color: '#c30c2c',
+    fontSize: "45px",
+    fontWeight: "400",
+    fontFamily: "font-family: 'Futura', 'Avenir', sans-serif",
+    letterSpacing: '8px',
+    textAlign: "left"
+  },
+  newContainerHeadingSecond: {
+    fontWeight: "300",
+    fontSize: "20px",
+    marginTop: "40px",
+    fontFamily: "font-family: 'Futura', 'Avenir', sans-serif",
+    color: "#2E2E2E",
+    letterSpacing: '1px',
+    textAlign: "left"
+  },
+  newContainerButton: {
+    border: "1px solid grey",
+    outline: "none",
+    padding: "10px",
+    background: "white",
+    color: "black",
+    marginTop: "20px",
+    width: "320px",
+    height: "60px",
+    '&:hover': {
+      backgroundColor: '#c30c2c',
+      color: "white",
+      boxShadow: 'none',
+      border: "none",
+      transition: "background-color 0.8s ease-in"
+    }
+  },
+  newsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: "150px",
+    marginBottom: "100px"
+  },
+  newsContainerHeadingFirst: {
+    color: '#c30c2c',
+    fontSize: "45px",
+    fontWeight: "400",
+    fontFamily: "font-family: 'Futura', 'Avenir', sans-serif",
+    letterSpacing: '5px',
+    marginBottom: '50px'
+  },
+  newsContainerBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: "20px"
+  },
+  newsContainerBoxFirst: {
+    padding: "10px",
+    width: '30%'
+  },
+  newsContainerBoxFirstHeadingOne: {
+    color: "#c30c2c",
+    textAlign: "left",
+    fontSize: '12px',
+    marginTop: "15px"
+  },
+  newsContainerBoxFirstHeadingSecond: {
+    color: "#c30c2c",
+    textAlign: "left",
+    fontWeight: "100",
+    marginTop: '30px'
+  },
+  newsContainerBoxFirstHeadingThird: {
+    textAlign: "left",
+    color: "#2E2E2E",
+    marginTop: "20px"
+  },
+  newsContainerBoxSecond: {
+    padding: "10px",
+    width: '30%'
+  },
+  newsContainerBoxSecondHeadingFirst: {
+    color: "#c30c2c",
+    textAlign: "left",
+    fontSize: '12px',
+    marginTop: "15px"
+  },
+  newsContainerBoxSecondHeadingSecond: {
+    color: "#c30c2c",
+    textAlign: "left",
+    fontWeight: "100",
+    marginTop: '30px'
+  },
+  newsContainerBoxSecondHeadingThird: {
+    textAlign: "left",
+    color: "#2E2E2E",
+    marginTop: "20px"
+  },
+  newsContainerBoxThird: {
+    padding: "10px",
+    width: '30%'
+  },
+  newsContainerBoxThirdHeadingFirst: {
+    color: "#c30c2c",
+    textAlign: "left",
+    fontSize: '12px',
+    marginTop: "15px"
+  },
+  newsContainerBoxThirdHeadingSecond: {
+    color: "#c30c2c",
+    textAlign: "left",
+    fontWeight: "100",
+    marginTop: '30px'
+  },
+  newsContainerBoxThirdHeadingThird: {
+    textAlign: "left",
+    color: "#2E2E2E",
+    marginTop: "20px"
+  }
+} 
