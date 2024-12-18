@@ -134,7 +134,8 @@ const styles = {
   },
   collection: {
     padding: "40px",
-    margin: "20px"
+    margin: "20px",
+    textAlign:"center"
   },
   collectionHeadingFirst: {
     color: "#2E2E2E",
