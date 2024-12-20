@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useMemo } from 'react';
 import Layout from '../../components/Layout';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../../redux/productsSlice';
@@ -15,27 +15,29 @@ const Products = () => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  //If Loading
+  const handleCategoryChange = (category) => {
+    setSelectedCategory((previousCategory) =>previousCategory === category ? '' : category);
+  };
+
+  const filteredProducts = useMemo(() => {
+    const filtered = selectedCategory.length > 0 ? products.filter((item) => item.category === selectedCategory) : products;
+    return filtered;
+  }, [products, selectedCategory]);
+
   if (loading) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: "column", gap: "10px" }}>
-        <img src='https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw700' width={180} height={180} />
+        <img src='https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw700' width={200} height={200} />
       </div>
     );
   }
 
-  //If Error
   if (error) { return <h4>Oops Something Went Wrong{error.message}</h4>; }
 
-   //Handeling Category Change             
-  const handleCategoryChange = (category) => {
-    setSelectedCategory((previousCategory) =>
-      previousCategory === category ? '' : category
-    );
-  };
+  
 
-  //Filter Products 
-  const filteredProducts = selectedCategory ? products.filter((item) => item.category === selectedCategory) : products;
+  
+  
 
   return (
     <Layout>
@@ -54,7 +56,7 @@ const Products = () => {
         <div style={styles.productList}>
           {filteredProducts.map((item) => (
             <div key={item._id} style={styles.productItem} >
-              <img src={`${process.env.REACT_APP_API}/uploads/${item.image}`} alt={item.title} style={styles.productImage} />
+              <img src={`${process.env.REACT_APP_API}/uploads/${item.image}`} alt={item.title} style={styles.productImage} loading='lazy' />
               <h6>{item.title}</h6>
               <p style={styles.productText}>Price: ${item.price}</p>
               <p style={styles.productText}>Category: {item.category}</p>
@@ -62,7 +64,7 @@ const Products = () => {
             </div>
           ))}
         </div>
-
+            
       </div>
     </Layout>
   );
