@@ -63,8 +63,8 @@ export const paymentController=async(req,res)=>{
             payment_method_types: ['card'],
             mode: 'payment',
             line_items: lineItems,
-            success_url: 'http://localhost:3000/success', // Redirect after success
-            cancel_url: 'http://localhost:3000/cancel',   // Redirect after cancellation
+            success_url: 'https://e-commerce-2024-frontend.onrender.com/success', // Redirect after success
+            cancel_url: 'https://e-commerce-2024-frontend.onrender.com/cancel',   // Redirect after cancellation
         });
 
         res.json({ id: session.id });
