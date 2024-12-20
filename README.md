@@ -1,11 +1,10 @@
-🌟 E-COMMERCE WEBSITE 🌟
-🚀 LIVE PROJECT LINK: Visit E-Commerce Website
-📜 Project Details:
-🛠 Technology Used: MERN STACK
-👨‍💻 Created By: RACHIT DHYANI
-💻 Available On: Desktop Only
-🎉 Features:
-🌈 User-Friendly Interface
-🛒 Seamless Shopping Experience
-🔒 Secure Transactions
-⚡ High Performance
+LIVE PROJECT LINK : https://e-commerce-2024-frontend.onrender.com
+
+PROJECT NAME : E-COMMERCE WEBSITE
+
+TECHNOLOGY USED : MERN STACK
+
+CREATED BY : RACHIT DHYANI
+
+AVAILABLE ON : DESKTOP ONLY i have this on readme file i want to make it look colorfl
+
