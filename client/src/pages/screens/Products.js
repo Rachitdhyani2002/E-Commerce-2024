@@ -15,6 +15,7 @@ const Products = () => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+  //If Loading
   if (loading) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: "column", gap: "10px" }}>
@@ -23,14 +24,17 @@ const Products = () => {
     );
   }
 
+  //If Error
   if (error) { return <h4>Oops Something Went Wrong{error.message}</h4>; }
 
+   //Handeling Category Change             
   const handleCategoryChange = (category) => {
     setSelectedCategory((previousCategory) =>
       previousCategory === category ? '' : category
     );
   };
 
+  //Filter Products 
   const filteredProducts = selectedCategory ? products.filter((item) => item.category === selectedCategory) : products;
 
   return (
