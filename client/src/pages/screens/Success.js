@@ -39,7 +39,11 @@ const styles = {
   },
   successBox: {
     width: "500px",
-    margin: "20px"
+    margin: "20px",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection:"column",
+    alignItems:"center"
   },
   successIcon: {
     color: "#2cff05",
