@@ -17,45 +17,50 @@ const LogInForm = () => {
         e.preventDefault();
         try {
             const response = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, { email, password })
-            if (response.data.success ===true) {
+            if (response.status===200) {
                 console.log(response)
-                localStorage.setItem('user', JSON.stringify(response.data.user));
+                localStorage.setItem('user',JSON.stringify(response.data.user.email));
                 alert(`Welcome! ${response.data.user.name}`)
                 navigate('/home');
             }
         }
         catch (error) {
             console.error(error)
-            alert(error.response.data.message) 
+            alert(error.response.data.message)
             setEmail("")
             setPassword("")
         }
     }
     return (
         <Layout>
-            <Container maxWidth="md" sx={{ display: "flex", alignItems: "center", height: "100vh" }}>
+            <Container maxWidth="md" sx={styles.container}>
                 <Grid container spacing={10}>
 
-                    <Grid item md={6} sx={{ display: { xs: 'none', md: 'flex', justifyContent: "center" } }} >
-                        <Box square sx={{ color: "#101820", height: "100%", textAlign: "center", display: 'flex',flexDirection:"column" }} >
-                                    <img src={gif} width={300} height={300} />
+                    {/* Container1 */}
+                    <Grid item md={6} sx={styles.imageBox} >
+                        <Box square sx={styles.image} >
+                            <img src={gif} width={300} height={300} />
                         </Box>
                     </Grid>
-                    <Grid item md={6}>
-                        <Box square sx={{ height: "100%" }}>
-                            <Box sx={{ p: 5, display: "flex", flexDirection: "column", justifyContent: 'center', alignItems: "center" }}>
-                                <h1 style={{ textAlign: "center", fontWeight: '100' }}>LOG IN</h1>
-                                <TextField fullWidth id="email" label="Email" variant="outlined" sx={{ mb: 2 }} value={email} onChange={((e) => setEmail(e.target.value))} required />
-                                <TextField fullWidth id="password" label="Password" variant="outlined" sx={{ mb: 2 }} value={password} onChange={((e) => setPassword(e.target.value))} required />
-                                <Button fullWidth variant="contained" sx={{ bgcolor: "#c30c2c", color: "white" }} onClick={handleLogIn}>LOG IN</Button>
-                                <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: "50px" }}>
-                                    <Link to='/register' style={{ textDecoration: "none", fontSize: "11px", marginTop: "8px" }}>Create An Account </Link>
-                                    <Link to='/forget-password' style={{ textDecoration: "none", fontSize: "11px", marginTop: "8px" }}>Forget Password?</Link>
+                    {/* Container1 */}
 
+
+                    {/* Container2 */}
+                    <Grid item md={6}>
+                        <Box square sx={styles.form}>
+                            <Box sx={styles.formContainer}>
+                                <h1 style={styles.formHeading}>LOG IN</h1>
+                                <TextField fullWidth id="email" label="Email" variant="outlined" sx={styles.Input} value={email} onChange={((e) => setEmail(e.target.value))} required />
+                                <TextField fullWidth id="password" label="Password" variant="outlined" sx={styles.Input} value={password} onChange={((e) => setPassword(e.target.value))} required />
+                                <Button fullWidth variant="contained" sx={styles.button} onClick={handleLogIn}>LOG IN</Button>
+                                <Box sx={styles.Links}>
+                                    <Link to='/register' style={styles.firstLink}>Create An Account </Link>
+                                    <Link to='/forget-password' style={styles.secondLink}>Forget Password?</Link>
                                 </Box>
                             </Box>
                         </Box>
                     </Grid>
+                    {/* Container2 */}
 
                 </Grid>
             </Container>
@@ -64,3 +69,66 @@ const LogInForm = () => {
 }
 
 export default LogInForm;
+
+//Styles
+const styles = {
+    container: {
+        display: "flex",
+        alignItems: "center",
+        height: "100vh"
+    },
+    imageBox: {
+        display:
+        {
+            xs: 'none',
+            md: 'flex',
+            justifyContent: "center"
+        }
+    },
+    image: {
+        color: "#101820",
+        height: "100%",
+        textAlign: "center",
+        display: 'flex',
+        flexDirection: "column"
+    },
+    form: {
+        height: "100%"
+    },
+    formContainer: {
+        p: 5,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: 'center',
+        alignItems: "center"
+    },
+    formHeading: {
+        textAlign: "center",
+        fontWeight: '100'
+    },
+    Input: {
+        mb: 2
+    },
+    button: {
+        background: "#c30c2c",
+        color: "white"
+    },
+    Links: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "50px"
+    },
+    firstLink: {
+        textDecoration: "none",
+        fontSize: "11px",
+        marginTop: "8px"
+    },
+    secondLink: {
+        textDecoration: "none",
+        fontSize: "11px",
+        marginTop: "8px"
+    }
+
+}
