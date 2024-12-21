@@ -7,7 +7,6 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../utils/images/1726368914855.jpg'
 import gif from '../../utils/images/giphy.gif'
 
 const RegisterForm = () => {
@@ -22,6 +21,7 @@ const RegisterForm = () => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/register`, { name, email, password, contact })
             if (response.data.success == true) {
+                alert("You have been redirected to login page now")
                 navigate('/')
             }
             else { alert("Something went wrong") }
@@ -33,26 +33,25 @@ const RegisterForm = () => {
     }
     return (
         <Layout >
-            <Container maxWidth="md" sx={{ display: "flex", alignItems: "center", height: "100vh", }}>
+            <Container maxWidth="md" sx={styles.container}>
                 <Grid container spacing={10}>
-                    <Grid item md={6} sx={{ display: { xs: 'none', md: 'flex', justifyContent: "center", alignItems: "center" } }}>
-                        <Box square sx={{ color: "#101820", height: "100%", textAlign: "center", display: 'flex', alignItems: 'center' }} >
+                    <Grid item md={6} sx={styles.imageBox}>
+                        <Box square sx={styles.image} >
                             <img src={gif} width={300} height={300} />
-
                         </Box>
                     </Grid>
                     <Grid item md={6}>
-                        <Box square sx={{ height: "100%" }}>
-                            <Box sx={{ p: 5, display: "flex", flexDirection: "column", justifyContent: 'center', alignItems: "center" }}>
-                                <h1 style={{ textAlign: "center", fontWeight: "100" }}>Register</h1>
-                                <TextField fullWidth id="name" label="Name" variant="outlined" sx={{ mb: 2 }} value={name} onChange={((e) => setName(e.target.value))} required />
-                                <TextField fullWidth id="email" label="Email" variant="outlined" sx={{ mb: 2 }} value={email} onChange={((e) => setEmail(e.target.value))} required />
-                                <TextField fullWidth id="password" label="Password" variant="outlined" sx={{ mb: 2 }} value={password} onChange={((e) => setPassword(e.target.value))} required />
-                                <TextField fullWidth id="contact" label="Contact Number" variant="outlined" sx={{ mb: 2 }} value={contact} onChange={((e) => setContact(e.target.value))} required />
+                        <Box square sx={styles.form}>
+                            <Box sx={styles.formContainer}>
+                                <h1 style={styles.formHeading}>Register</h1>
+                                <TextField fullWidth id="name" label="Name" variant="outlined" sx={styles.Input} value={name} onChange={((e) => setName(e.target.value))} required />
+                                <TextField fullWidth id="email" label="Email" variant="outlined" sx={styles.Input} value={email} onChange={((e) => setEmail(e.target.value))} required />
+                                <TextField fullWidth id="password" label="Password" variant="outlined" sx={styles.Input} value={password} onChange={((e) => setPassword(e.target.value))} required />
+                                <TextField fullWidth id="contact" label="Contact Number" variant="outlined" sx={styles.Input} value={contact} onChange={((e) => setContact(e.target.value))} required />
 
-                                <Button fullWidth variant="contained" sx={{ bgcolor: "#c30c2c", color: "white" }} onClick={handleSubmit}>Register</Button>
-                                <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                                    <Link to='/' style={{ textDecoration: "none", fontSize: "11px", marginTop: "8px" }}>Already Have An Account? Log In</Link>
+                                <Button fullWidth variant="contained" sx={styles.button} onClick={handleSubmit}>Register</Button>
+                                <Box sx={styles.Links}>
+                                    <Link to='/' style={styles.firstLink}>Already Have An Account? Log In</Link>
                                 </Box>
                             </Box>
                         </Box>
@@ -64,3 +63,63 @@ const RegisterForm = () => {
 }
 
 export default RegisterForm;
+
+//Styles
+const styles = {
+    container: {
+        display: "flex",
+        alignItems: "center",
+        height: "100vh"
+    },
+    imageBox: {
+        display:
+        {
+            xs: 'none',
+            md: 'flex',
+            justifyContent: "center"
+        }
+    },
+    image: {
+        color: "#101820",
+        height: "100%",
+        display: 'flex',
+        justifyContent:"center",
+        alignItems:"center",
+        
+    },
+    form: {
+        height: "100%"
+    },
+    formContainer: {
+        p: 5,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: 'center',
+        alignItems: "center"
+    },
+    formHeading: {
+        textAlign: "center",
+        fontWeight: '100'
+    },
+    Input: {
+        mb: 2
+    },
+    button: {
+        background: "#c30c2c",
+        color: "white"
+    },
+    Links: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "50px"
+    },
+    firstLink: {
+        textDecoration: "none",
+        fontSize: "11px",
+        marginTop: "8px"
+    },
+   
+
+}
