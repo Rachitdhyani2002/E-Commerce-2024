@@ -35,12 +35,12 @@ const RegisterForm = () => {
         <Layout >
             <Container maxWidth="md" sx={styles.container}>
                 <Grid container spacing={10}>
-                    <Grid item md={6} sx={styles.imageBox}>
+                    <Grid item md={6} xs={12} sx={styles.imageBox}>
                         <Box square sx={styles.image} >
                             <img src={gif} width={300} height={300} />
                         </Box>
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item md={6} xs={12}>
                         <Box square sx={styles.form}>
                             <Box sx={styles.formContainer}>
                                 <h1 style={styles.formHeading}>Register</h1>
@@ -102,11 +102,13 @@ const styles = {
         fontWeight: '100'
     },
     Input: {
-        mb: 2
+        mb: 2,
+        maxWidth: { xs: '100%', sm: '400px' },
     },
     button: {
         background: "#c30c2c",
-        color: "white"
+        color: "white",
+       
     },
     Links: {
         display: "flex",
