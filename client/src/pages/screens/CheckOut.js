@@ -18,7 +18,8 @@ const Checkout = () => {
         const result = stripe.redirectToCheckout({
             sessionId: session.id
         })
-        if (result.error) {alert("Stripe checkout error:", result.error.message);}
+        console.log(result)
+        if (result.error) {console.error("Stripe checkout error:", result.error.message);}
 
     };
 
@@ -47,12 +48,18 @@ export default Checkout;
 const styles = {
     checkOut: {
         display: "flex",
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh'
+        justifyContent:"center",
+        alignItems:"center",
+        height: '100vh',
+        width:"100%",
     },
     checkOutBox: {
-        width: "50%",
+        display: "flex",
+        justifyContent:"center",
+        alignItems:"center",
+        flexDirection:"column",
+        width: "100%",
+        height:"auto",
         background: '#f9f9f9',
         padding: "40px",
         borderRadius: "10px"
@@ -61,11 +68,13 @@ const styles = {
         color: '#c30c2c',
         fontWeight: "400",
         fontSize: "30px",
-        textAlign:"center"
+        textAlign:"center",
+        width:"100%"
     },
     checkOutText: {
         fontSize: "14px",
-        textAlign:"center"
+        textAlign:"center",
+        fontSize: 'clamp(10px, 5vw, 12px)'
     },
     checkOutItem: {
         margin: "10px",
@@ -79,13 +88,14 @@ const styles = {
         color: 'black',
         fontWeight: '100',
         margin: "15px",
-        fontSize: "18px"
+        fontSize: "18px",
+        fontSize: 'clamp(10px, 5vw, 14px)',
     },
     paymentButton: {
         padding: '10px',
         border: 'none',
         outline: 'none',
-        width: "400px",
+        width: "100%",
         borderRadius: "20px",
         background: "#353935",
         color: "white",
@@ -95,7 +105,7 @@ const styles = {
         padding: '10px',
         border: 'none',
         outline: 'none',
-        width: "400px",
+        width: "100%",
         borderRadius: "20px",
         background: "#353935",
         color: "white"
