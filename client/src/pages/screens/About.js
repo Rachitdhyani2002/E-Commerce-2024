@@ -34,32 +34,50 @@ const styles = {
         margin: "60px",
         height: '600px',
         alignItems: 'center',
-        justifyContent: 'center'
-    },
-    aboutUsContainerHeading: {
+        justifyContent: 'center',
+        '@media (max-width: 600px)': {
+          flexDirection: 'column',
+          padding: "20px",
+          margin: "20px",
+          height: 'auto',
+          alignItems: "center",
+          textAlign: "center"
+        },
+      },
+      aboutUsContainerHeading: {
         p: 10,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         flexDirection: 'column',
         textAlign: "left",
-        background: 'white'
-    },
-    aboutUsContainerHeadingFirst: {
+        background: 'white',
+        '@media (max-width: 600px)': {
+          textAlign: "center",
+          width: "100%",
+          height: "200px",
+        },
+      },
+      aboutUsContainerHeadingFirst: {
         color: "#c30c2c",
         fontSize: "80px",
         fontWeight: "100",
-
-    },
-    aboutUsContainerHeadingSecond: {
+    
+      },
+      aboutUsContainerHeadingSecond: {
         marginTop: "1px",
         fontSize: '12px',
         letterSpacing: '2px'
-    },
-    aboutUsContainerText: {
+      },
+      aboutUsContainerText: {
         background: 'white',
         width: '200',
         margin: "20px",
-        padding: "50px"
-    },
+        padding: "50px",
+        '@media (max-width: 600px)': {
+          width: '100%',
+          margin: "10px",
+          padding: "20px",
+        },
+      }
 }
