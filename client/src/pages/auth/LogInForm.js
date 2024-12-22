@@ -37,7 +37,7 @@ const LogInForm = () => {
                 <Grid container spacing={10}>
 
                     {/* Container1 */}
-                    <Grid item md={6} sx={styles.imageBox} >
+                    <Grid item xs={12} md={6} sx={styles.imageBox} >
                         <Box square sx={styles.image} >
                             <img src={gif} width={300} height={300} />
                         </Box>
@@ -46,7 +46,7 @@ const LogInForm = () => {
 
 
                     {/* Container2 */}
-                    <Grid item md={6}>
+                    <Grid item xs={12} md={6}>
                         <Box square sx={styles.form}>
                             <Box sx={styles.formContainer}>
                                 <h1 style={styles.formHeading}>LOG IN</h1>
@@ -100,18 +100,21 @@ const styles = {
         display: "flex",
         flexDirection: "column",
         justifyContent: 'center',
-        alignItems: "center"
+        alignItems: "center",
+        
     },
     formHeading: {
         textAlign: "center",
         fontWeight: '100'
     },
     Input: {
-        mb: 2
+        mb: 2,
+        maxWidth: { xs: '100%', sm: '400px' },
     },
     button: {
         background: "#c30c2c",
-        color: "white"
+        color: "white",
+        
     },
     Links: {
         display: "flex",
