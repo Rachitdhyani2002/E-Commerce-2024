@@ -30,7 +30,7 @@ const Cart = () => {
                     {items.length > 0 ? <>
 
                         {/* Container1 */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                        <div style={styles.cartLook}>
                             {items.map((p) => (
                                 <div key={p._id} style={styles.cartItem}>
                                     <div style={styles.imageContainer}>
@@ -91,17 +91,40 @@ const styles = {
     cartContainer: {
         display: "flex",
         justifyContent: 'center',
-        alignContent: "center",
+        alignItems: "center",
         width: "100%",
         padding: "20px",
-        marginTop: "70px"
+        marginTop: "70px",
+        "@media (max-width: 768px)": {
+            padding: "25px",
+            marginTop: "50px",
+        },
+        "@media (max-width: 480px)": {
+            padding: "10px",
+            marginTop: "30px",
+        }
     },
     cartBox: {
         display: "flex",
         justifyContent: 'space-between',
         alignContent: "center",
-        flexDirection: 'row',
-        width: "70%"
+        flexDirection: 'column',
+        width: "50%",
+        gap: "10px",
+        "@media (max-width: 768px)": {
+            flexDirection: "column",
+            width: "100%",
+            gap: "10px",
+            alignItems: "center"
+        }
+    },
+    cartLook: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        width: "100%",
+        height: "auto",
+        padding: "10px"
     },
     cartItem: {
         display: 'flex',
@@ -111,13 +134,15 @@ const styles = {
         borderRadius: '8px',
         padding: '10px',
         backgroundColor: '#f9f9f9',
-        width: "450px",
-        height: '100px'
+        width: "100%",
+        height: 'auto',
+
     },
     imageContainer: {
         width: '100px',
         height: '100px',
-        padding: "15px"
+        padding: "15px",
+
     },
     image: {
         width: '100%',
@@ -129,20 +154,21 @@ const styles = {
         padding: "10px"
     },
     productName: {
-        fontSize: '15px',
+        fontSize: 'clamp(10px, 5vw, 11px)',
         color: "black",
         textAlign: "left",
         margin: "0",
-        fontWeight: "500"
+        fontWeight: "500",
+
     },
     productPrice: {
-        fontSize: '14px',
+        fontSize: 'clamp(10px, 5vw, 11px)',
         color: "black",
         textAlign: "left",
         margin: "0"
     },
     productCategory: {
-        fontSize: '14px',
+        fontSize: 'clamp(10px, 5vw, 11px)',
         color: "black",
         textAlign: "left",
         margin: "0"
@@ -151,7 +177,9 @@ const styles = {
         fontSize: '14px',
         color: '#555',
         textAlign: "left",
-        margin: "0"
+        margin: "0",
+        fontSize: 'clamp(10px, 5vw, 11px)',
+
     },
     removeButton: {
         backgroundColor: 'white',
@@ -161,6 +189,8 @@ const styles = {
         borderRadius: '4px',
         padding: '8px 12px',
         cursor: 'pointer',
+        fontSize: 'clamp(10px, 5vw, 11px)',
+
     },
     orderContainer: {
         display: 'flex',
@@ -171,16 +201,20 @@ const styles = {
         background: "#f9f9f9",
         padding: "20px",
         borderRadius: "10px",
-        width: "400px",
-        border: '1px solid #ddd'
+        width: "100%",
+        height: "auto"
+
     },
     orderIcon: {
         fontSize: "50px",
-        color: "#353935"
+        color: "#353935",
+        width: "auto"
     },
     orderHeading: {
         marginBottom: "20px",
-        textAlign: "center"
+        textAlign: "center",
+        fontSize: 'clamp(10px, 5vw, 14px)',
+
     },
     subTotalContainer: {
         display: "flex",
@@ -189,11 +223,11 @@ const styles = {
         alignItems: 'center'
     },
     subTotalHeading: {
-        fontSize: "14px",
+        fontSize: 'clamp(10px, 5vw, 13px)',
         fontWeight: "500"
     },
     subTotalText: {
-        fontSize: "14px",
+        fontSize: 'clamp(10px, 5vw, 13px)',
         fontWeight: "500"
     },
     taxContainer: {
@@ -203,11 +237,11 @@ const styles = {
         alignItems: 'center'
     },
     taxHeading: {
-        fontSize: "14px",
+        fontSize: 'clamp(10px, 5vw, 13px)',
         fontWeight: "500"
     },
     taxText: {
-        fontSize: "14px",
+        fontSize: 'clamp(10px, 5vw, 13px)',
         fontWeight: "500"
     },
     quantityContainer: {
@@ -217,11 +251,11 @@ const styles = {
         alignItems: 'center'
     },
     quantityHeading: {
-        fontSize: "14px",
+        fontSize: 'clamp(10px, 5vw, 13px)',
         fontWeight: "500"
     },
     quantityText: {
-        fontSize: "14px",
+        fontSize: 'clamp(10px, 5vw, 13px)',
         fontWeight: "500"
     },
     amountContainer: {
@@ -231,11 +265,11 @@ const styles = {
         alignItems: 'center'
     },
     amountHeading: {
-        fontSize: "14px",
+        fontSize: 'clamp(10px, 5vw, 13px)',
         fontWeight: "500"
     },
     amountText: {
-        fontSize: "14px",
+        fontSize: 'clamp(10px, 5vw, 13px)',
         fontWeight: "500"
     },
     checkOutButton: {
@@ -244,13 +278,15 @@ const styles = {
         padding: "10px",
         border: "none",
         outline: "none",
-        width: "300px",
+        width: "100%",
         borderRadius: "20px",
         marginTop: "20px",
-        marginLeft: "35px"
+        fontSize: 'clamp(10px, 5vw, 13px)',
     },
     emptyCart: {
         display: "flex",
         justifyContent: "center"
-    }
+    },
+
+
 };
