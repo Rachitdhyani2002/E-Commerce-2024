@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppBar, Box, IconButton, Toolbar, Typography, Drawer, List, ListItem, ListItemText, Button } from '@mui/material';
-import TipsAndUpdatesSharpIcon from '@mui/icons-material/TipsAndUpdatesSharp';
+import { AppBar, Box, IconButton, Toolbar, Typography, Drawer, List, ListItem, ListItemText, Button, Divider } from '@mui/material';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import { useSelector } from 'react-redux';
 
@@ -35,6 +34,7 @@ const Header = () => {
       { text: 'PRODUCTS', path: '/products' },
       { text: 'ABOUT US', path: '/about' },
       { text: `CART (${numberOfProducts})`, path: '/cart' },
+      { text: `MY ORDERS`, path: '/orders' },
       ...(user.role === 1 ? [{ text: 'ADMIN', path: '/admin' }] : [])
     ]
     : [
@@ -44,41 +44,181 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="static" style={{ background: "transparent" }}>
-        <Toolbar sx={{ display: "flex", flexDirection: "column", marginTop: "10px", padding: "10px" }}>
-          <Typography variant="h5" sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, letterSpacing: "1px", color: "#101820", flexDirection: "column" }}>
-            <span style={{ fontWeight: "100" }}><span style={{ color: "#c30c2c", fontSize: "30px" }}>Odysseus</span></span>
-            <p style={{ fontSize: "10px" }}>watches</p>
+      <AppBar position="static" style={styles.appBar}>
+        
+        {/* Container1 */}
+        <Toolbar sx={styles.toolbar}>
+          
+          {/* Heading */}
+          <Typography variant="h5" sx={styles.typoGraphy}>
+            <span style={styles.heading}>Odysseus</span>
+            <p style={styles.span}>watches</p>
           </Typography>
-          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, gap: "60px" }}>
+          {/* Heading */}
+
+          {/* MenuItems */}
+          <Box sx={styles.menu}>
             {menuItems.map((item, index) => (
-              <Link key={index} to={item.path} style={{ margin: '0 10px', textDecoration: "none", color: "black", fontSize: '18px', fontWeight: "100" }}>
+              <Link key={index} to={item.path} style={styles.menuLinks}>
                 {item.text}
               </Link>
             ))}
-            {user ? <Button sx={{ background: "white", color: "black", border: "0.1px solid black", width: "200px", '&:hover': { backgroundColor: '#c30c2c', color: "white", boxShadow: 'none', border: "none", transition: "background-color 0.8s ease-in" } }} onClick={handleLogOut}>Log out</Button> : ""}
+            {user ? <Button sx={styles.logOutButton} onClick={handleLogOut}>Log out</Button> : ""}
           </Box>
+          {/* MenuItems */}
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, width: "100%" }}>
+          {/* Icon */}
+          <Box sx={styles.iconBox}>
             <IconButton size="small" edge="start" aria-label='logo' color="red" onClick={handleDrawerOpen}>
-              <MenuSharpIcon sx={{ color: "red" }} />
+              <MenuSharpIcon sx={styles.icon} />
             </IconButton>
           </Box>
+          {/* Icon */}
+
         </Toolbar>
+        
+        {/* Container1 */}
       </AppBar>
-      <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose}  >
-        <List >
+
+      {/* Container2 */}
+      <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose} style={styles.drawer}>
+        <span style={styles.IconHeading}>Odysseus</span>
+        <p style={styles.span}>watches</p><hr style={styles.divider} />
+        <List style={styles.IconList}>
           {menuItems.map((item, index) => (
             <ListItem button key={index} onClick={handleDrawerClose}>
-              <ListItemText primary={<Link to={item.path} style={{ textDecoration: "none", color: "#c30c2c" }}>{item.text}</Link>} />
+              <ListItemText primary={<Link to={item.path} style={styles.iconLinks}>{item.text}</Link>} />
             </ListItem>
-
           ))}
-          {user ? <Button sx={{ background: "#c30c2c", color: "white", width: "150px", margin: "5px", '&:hover': { backgroundColor: '#c30c2c', color: "white", boxShadow: 'none', border: "none", transition: "background-color 0.8s ease-in" } }} onClick={handleLogOut}>Log out</Button> : ""}
         </List>
+        {user ? <Button sx={styles.btn} onClick={handleLogOut}>Log out</Button> : ""}
       </Drawer>
+      {/* Container2*/}
     </>
   );
 };
 
 export default Header;
+
+//Styles
+const styles = {
+  appBar: {
+    background: "transparent"
+  },
+  toolbar: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "10px",
+    padding: "10px"
+  },
+  typoGraphy: {
+    flexGrow: 1,
+    display:
+    {
+      xs: 'none',
+      md: 'flex'
+    },
+    letterSpacing: "1px",
+    color: "#101820",
+    flexDirection: "column"
+  },
+  heading: {
+    color: "#c30c2c",
+    fontSize: "30px",
+    fontWeight: "100",
+  },
+  span: {
+    fontSize: "10px",
+    textAlign: "center",
+    marginTop: 0,
+    padding: 0
+  },
+  menu: {
+    flexGrow: 0,
+    display: {
+      xs: 'none',
+      md: 'flex'
+    },
+    gap: "60px"
+  },
+  menuLinks: {
+    margin: '0 10px',
+    textDecoration: "none",
+    color: "black",
+    fontSize: '18px',
+    fontWeight: "100"
+  },
+  logOutButton: {
+    background: "white",
+    color: "black",
+    border: "0.1px solid black",
+    width: "200px",
+    '&:hover': {
+      backgroundColor: '#c30c2c',
+      color: "white",
+      boxShadow: 'none',
+      border: "none",
+      transition: "background-color 0.8s ease-in"
+    }
+  },
+  iconBox: {
+    flexGrow: 1,
+    display: {
+      xs: 'flex',
+      md: 'none'
+    },
+    width: "100%"
+  },
+  icon: {
+    color: "red"
+  },
+  drawer: {
+    background: "transparent",
+  },
+  IconList: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    background: "transparent",
+    textAlign: "justify",
+    margin: "10px",
+  },
+  IconHeading: {
+    textAlign: "center",
+    fontSize: "30px",
+    padding: 0,
+    margin: 0,
+    fontWeight: "100",
+    color: "#c30c2c",
+    width: "100%",
+    height: "8%",
+    marginTop: "10px"
+  },
+  iconLinks: {
+    textDecoration: "none",
+    color: "grey",
+    fontSize: "12px",
+    letterSpacing: "1px"
+  },
+  btn: {
+    background: "white",
+    color: "black",
+    width: "150px",
+    border: "1px solid grey",
+    margin: "8px",
+    '&:hover': {
+      backgroundColor: '#c30c2c',
+      color: "white",
+      boxShadow: 'none',
+      border: "none",
+      transition: "background-color 0.8s ease-in"
+    },
+    fontSize: "12px",
+    marginTop: "25px"
+  },
+  divider: {
+    color: "red",
+    margin: "10px",
+    marginTop: 0
+  }
+}
