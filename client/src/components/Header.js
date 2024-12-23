@@ -83,7 +83,7 @@ const Header = () => {
       {/* Container2 */}
       <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose} style={styles.drawer}>
         <span style={styles.IconHeading}>Odysseus</span>
-        <p style={styles.span}>watches</p><hr style={styles.divider} />
+        <p style={styles.span}>watches</p>
         <List style={styles.IconList}>
           {menuItems.map((item, index) => (
             <ListItem button key={index} onClick={handleDrawerClose}>
@@ -215,10 +215,6 @@ const styles = {
     },
     fontSize: "12px",
     marginTop: "25px"
-  },
-  divider: {
-    color: "red",
-    margin: "10px",
-    marginTop: 0
   }
+  
 }
