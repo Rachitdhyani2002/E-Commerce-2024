@@ -7,6 +7,7 @@ import { connectDb } from './database/configuration/config.js';
 import morgan from 'morgan';
 import userRoutes from './routes/userRoutes.js';
 import productRoutes from './routes/productRoutes.js';
+import orderRoutes from './routes/orderRoutes.js'
 import helmet from 'helmet';
 import { apiLimiter } from './middlewares/rateLimiter/rateLimiter.js';
 import cookieParser from 'cookie-parser';
@@ -25,7 +26,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: "https://e-commerce-2024-frontend.onrender.com",
+    origin: "http://localhost:3000",
     methods: 'GET,POST,DELETE,PUT',
     credentials: true,
     allowedHeaders: 'Content-Type, Authorization',
@@ -45,6 +46,7 @@ connectDb();
 // Routes
 app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/orders',orderRoutes)
 
 // PORT
 const PORT = process.env.PORT || 8080;
