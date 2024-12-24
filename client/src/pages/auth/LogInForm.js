@@ -19,7 +19,7 @@ const LogInForm = () => {
             const response = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, { email, password })
             if (response.status===200) {
                 console.log(response)
-                localStorage.setItem('user',JSON.stringify(response.data.user.email));
+                localStorage.setItem('user',JSON.stringify(response.data.user._id));
                 alert(`Welcome! ${response.data.user.name}`)
                 navigate('/home');
             }
