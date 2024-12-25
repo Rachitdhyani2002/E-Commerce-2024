@@ -28,9 +28,8 @@ const Success = () => {
         console.error(error)
       }
   }
-  if(sessionId){
-    saveOrder()
-  }
+  // if(sessionId){saveOrder()}
+      sessionId?saveOrder():console.error("No session id found")
   },[sessionId])
 
   //Navigate Home On Success
