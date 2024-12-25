@@ -122,7 +122,8 @@ const styles = {
       transform: 'scale(1.03)',
     },
     padding: "10px",
-    alignItems: "center"
+    alignItems: "center",
+    height:"fit-content"
   },
   productsDetail: {
     display: "flex",
