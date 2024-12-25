@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../../redux/productsSlice';
 import { Checkbox, CircularProgress, FormControlLabel, Paper, Box } from '@mui/material';
 import { addToCart } from '../../redux/cartSlice';
-import Fade from 'react-reveal/Fade'
 
 
 const Products = () => {
@@ -46,7 +45,6 @@ const Products = () => {
 
         {/* Sidebar with filters */}
         <Paper sx={styles.productSidebar}>
-          <Fade left>
             <h6 style={{ color: "#c30c2c" }}>Filter By Category</h6>
             <Box sx={styles.sidebarElements} >
               <FormControlLabel control={<Checkbox checked={selectedCategory === 'Men'} onChange={() => handleCategoryChange('Men')} size='small' />} label="Men" />
@@ -54,7 +52,6 @@ const Products = () => {
               <FormControlLabel control={<Checkbox checked={selectedCategory === 'Kids'} onChange={() => handleCategoryChange('Kids')} size='small' />} label="Kids" />
               <FormControlLabel control={<Checkbox checked={selectedCategory === 'Sports'} onChange={() => handleCategoryChange('Sports')} size='small' />} label="Sports" />
             </Box>
-          </Fade>
         </Paper>
 
         {/* Products List */}
