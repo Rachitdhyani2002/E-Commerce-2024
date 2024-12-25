@@ -1,9 +1,10 @@
-import React, { useEffect, useState,useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Layout from '../../components/Layout';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../../redux/productsSlice';
-import { Checkbox, FormControlLabel, Paper } from '@mui/material';
+import { Checkbox, CircularProgress, FormControlLabel, Paper, Box } from '@mui/material';
 import { addToCart } from '../../redux/cartSlice';
+import Fade from 'react-reveal/Fade'
 
 
 const Products = () => {
@@ -16,7 +17,7 @@ const Products = () => {
   }, [dispatch]);
 
   const handleCategoryChange = (category) => {
-    setSelectedCategory((previousCategory) =>previousCategory === category ? '' : category);
+    setSelectedCategory((previousCategory) => previousCategory === category ? '' : category);
   };
 
   const filteredProducts = useMemo(() => {
@@ -27,112 +28,144 @@ const Products = () => {
   if (loading) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: "column", gap: "10px" }}>
-        <img src='https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw700' width={200} height={200} />
+        <CircularProgress />
       </div>
     );
   }
 
   if (error) { return <h4>Oops Something Went Wrong{error.message}</h4>; }
 
-  
 
-  
-  
+
+
+
 
   return (
     <Layout>
-      <div style={styles.productContainer}>
+      <Paper sx={styles.productContainer}>
 
         {/* Sidebar with filters */}
         <Paper sx={styles.productSidebar}>
+          <Fade left>
             <h6 style={{ color: "#c30c2c" }}>Filter By Category</h6>
-            <FormControlLabel control={<Checkbox checked={selectedCategory === 'Men'} onChange={() => handleCategoryChange('Men')} />} label="Men" />
-            <FormControlLabel control={<Checkbox checked={selectedCategory === 'Women'} onChange={() => handleCategoryChange('Women')} />} label="Women" />
-            <FormControlLabel control={<Checkbox checked={selectedCategory === 'Kids'} onChange={() => handleCategoryChange('Kids')} />} label="Kids" />
-            <FormControlLabel control={<Checkbox checked={selectedCategory === 'Sports'} onChange={() => handleCategoryChange('Sports')} />} label="Sports" />
+            <Box sx={styles.sidebarElements} >
+              <FormControlLabel control={<Checkbox checked={selectedCategory === 'Men'} onChange={() => handleCategoryChange('Men')} size='small' />} label="Men" />
+              <FormControlLabel control={<Checkbox checked={selectedCategory === 'Women'} onChange={() => handleCategoryChange('Women')} size='small' />} label="Women" />
+              <FormControlLabel control={<Checkbox checked={selectedCategory === 'Kids'} onChange={() => handleCategoryChange('Kids')} size='small' />} label="Kids" />
+              <FormControlLabel control={<Checkbox checked={selectedCategory === 'Sports'} onChange={() => handleCategoryChange('Sports')} size='small' />} label="Sports" />
+            </Box>
+          </Fade>
         </Paper>
 
         {/* Products List */}
-        <div style={styles.productList}>
+        <Paper sx={styles.productList}>
           {filteredProducts.map((item) => (
-            <div key={item._id} style={styles.productItem} >
-              <img src={`${process.env.REACT_APP_API}/uploads/${item.image}`} alt={item.title} style={styles.productImage} loading='lazy' />
-              <h6>{item.title}</h6>
-              <p style={styles.productText}>Price: ${item.price}</p>
-              <p style={styles.productText}>Category: {item.category}</p>
-              <button style={styles.productButton} onClick={() => dispatch(addToCart(item))}>Add To Cart</button>
-            </div>
+            <Box key={item._id} sx={styles.productItem} >
+              <Box component="img" src={`${process.env.REACT_APP_API}/uploads/${item.image}`} alt={item.title} sx={styles.productImage} />
+              <div style={styles.productsDetail}>
+                <h6 style={styles.productTitle}>{item.title}</h6>
+                <p style={styles.productText}>Price: ${item.price}</p>
+                <p style={styles.productText}>Category: {item.category}</p>
+                <button style={styles.productButton} onClick={() => dispatch(addToCart(item))}>Add To Cart</button>
+              </div>
+
+            </Box>
           ))}
-        </div>
-            
-      </div>
+        </Paper>
+
+      </Paper>
     </Layout>
   );
 };
 
 export default Products;
 
-//Styles
 const styles = {
   productContainer: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: { xs: 'column', md: 'row' },
+    width: '100%',
     minHeight: '100vh',
-    padding: '20px',
+    gap: 2,
+    p: 2,
   },
   productSidebar: {
-    width: '20%',
-    margin: '10px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    padding: '15px',
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+    flex: { xs: '0 0 100%', md: '0 0 15%' },
+    display: "flex",
+    flexDirection: "column",
+    padding: 2,
+    boxShadow: 2,
     backgroundColor: '#f9f9f9',
-    minHeight: '100vh',
+    position: { md: 'sticky' },
+    top: 0,
+    textAlign: "center"
+
+  },
+  sidebarElements: {
+    display: "flex",
+    flexDirection: { xs: "row", md: "column" },
+    width: "auto",
   },
   productList: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '20px',
-    margin: '30px',
-    padding: '10px',
-    flexGrow: 3,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    minHeight: '100vh',
-    overflowY: 'auto',
-    paddingBottom: '50px',
+    flex: 1,
+    display: 'grid', // Use grid for proper grid behavior
+    gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, // Two items per row for xs and sm
+    gap: 2,
   },
   productItem: {
-    border: '1px solid #ddd',
-    borderRadius: '8px',
-    padding: '10px',
-    width: '230px',
-    maxHeight: '350px',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    margin: "5px"
+    border: '1px solid #ddd',
+    borderRadius: 2,
+    overflow: 'hidden',
+    flexWrap: 'wrap',
+    width: "auto",
+    transition: 'transform 0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.03)',
+    },
+    padding: "10px",
+    alignItems: "center"
   },
-  productButton: {
-    background: '#353935',
-    color: 'white',
-    border: 'none',
-    outline: 'none',
-    width: '200px',
-    padding: '5px',
-    marginTop: 'auto',
-    borderRadius: "5px"
+  productsDetail: {
+    display: "flex",
+    flexDirection: 'column',
+    justifyContent: "center",
+    width: "100%",
+    margin: '2px',
+    textAlign: "justify",
+    alignItems:"center"
+  },
+  productTitle: {
+    fontSize: 'clamp(12px, 2vw, 12px)',
+    width: "100%",
+    margin: "1px",
+    textAlign: "center"
+  },
+  productText: {
+    fontSize: 'clamp(12px, 2vw, 10px)',
+    margin: "1px",
+    marginLeft: "5px",
   },
   productImage: {
     objectFit: 'cover',
-    marginBottom: '10px',
-    width: "200px",
-    height: "200px"
+    width: { xs: '100px', sm: '150px', md: '100%' },
+    height: { xs: '100px', sm: '120px', md: '300px' },
+    borderRadius: 2,
+    boxShadow: 2,
+    maxWidth: "200px",
+    maxHeight: "200px",
   },
-  productText: {
-    fontSize: '15px',
-    marginBottom: '5px'
-  }
-}
+  productButton: {
+    backgroundColor: '#353935',
+    color: 'white',
+    border: 'none',
+    outline: 'none',
+    padding: '5px',
+    borderRadius: '5px',
+    width: "100%",
+    fontSize: 'clamp(12px, 2vw, 13px)',
+    margin:"2px"
+  },
+
+};
