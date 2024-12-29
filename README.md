@@ -6,5 +6,4 @@ TECHNOLOGY USED : MERN STACK
 
 CREATED BY : RACHIT DHYANI
 
-AVAILABLE ON : DESKTOP ONLY i have this on readme file i want to make it look colorfl
-
+AVAILABLE ON : DESKTOP/MOBILE
