@@ -2,14 +2,16 @@ import React, { useEffect, useState, useMemo } from 'react';
 import Layout from '../../components/Layout';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../../redux/productsSlice';
-import { Checkbox, CircularProgress, FormControlLabel, Paper, Box } from '@mui/material';
+import { Checkbox, CircularProgress, FormControlLabel, Paper, Box, TextField, InputAdornment } from '@mui/material';
 import { addToCart } from '../../redux/cartSlice';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const Products = () => {
   const { products, loading, error } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [searchItem, setSearchItem] = useState('')
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -19,10 +21,25 @@ const Products = () => {
     setSelectedCategory((previousCategory) => previousCategory === category ? '' : category);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchItem(e.target.value.toLowerCase());
+  }
+
   const filteredProducts = useMemo(() => {
-    const filtered = selectedCategory.length > 0 ? products.filter((item) => item.category === selectedCategory) : products;
+    let filtered = products;
+    if (selectedCategory) {
+      filtered = filtered.filter((item) => item.category === selectedCategory)
+    }
+    if (searchItem) {
+      const searchTerm = searchItem.toLowerCase();
+      filtered = filtered.filter(
+        (item) =>
+          item.title.toLowerCase().includes(searchTerm) ||
+          item.category.toLowerCase().includes(searchTerm)
+      );
+    }
     return filtered;
-  }, [products, selectedCategory]);
+  }, [products, selectedCategory, searchItem]);
 
   if (loading) {
     return (
@@ -34,12 +51,7 @@ const Products = () => {
 
   if (error) { return <h4>Oops Something Went Wrong{error.message}</h4>; }
 
-
-
-
-
-
-  return (
+return (
     <Layout>
       <Paper sx={styles.productContainer}>
 
@@ -54,22 +66,48 @@ const Products = () => {
             </Box>
         </Paper>
 
-        {/* Products List */}
-        <Paper sx={styles.productList}>
-          {filteredProducts.map((item) => (
-            <Box key={item._id} sx={styles.productItem} >
-              <Box component="img" src={`${process.env.REACT_APP_API}/uploads/${item.image}`} alt={item.title} sx={styles.productImage} />
-              <div style={styles.productsDetail}>
-                <h6 style={styles.productTitle}>{item.title}</h6>
-                <p style={styles.productText}>Price: ${item.price}</p>
-                <p style={styles.productText}>Category: {item.category}</p>
-                <button style={styles.productButton} onClick={() => dispatch(addToCart(item))}>Add To Cart</button>
-              </div>
+        <Box sx={styles.bigBox}>
 
-            </Box>
-          ))}
-        </Paper>
+         {/* Search Bar */}
+          <Box sx={styles.searchBar}>
+            <TextField fullWidth placeholder='Search Products' InputProps={{
+              endAdornment: (<InputAdornment position="end"><SearchIcon sx={{ color: '#900c22' }} /></InputAdornment>
+              ),
+            }} onChange={handleSearchChange} />
+          </Box>
 
+          {/* Products List */}
+          <Paper sx={styles.productList}>
+
+            {filteredProducts.length === 0 ? (
+               <h4 style={styles.warningText}>Sorry! No products found matching this keyword.</h4>
+            ) : (
+              filteredProducts.map((item) => (
+                <Box key={item._id} sx={styles.productItem}>
+                  <Box
+                    component="img"
+                    src={`${process.env.REACT_APP_API}/uploads/${item.image}`}
+                    alt={item.title}
+                    sx={styles.productImage}
+                  />
+                  <div style={styles.productsDetail}>
+                    <h6 style={styles.productTitle}>{item.title}</h6>
+                    <p style={styles.productText}>Price: ${item.price}</p>
+                    <p style={styles.productText}>Category: {item.category}</p>
+                    <button
+                      style={styles.productButton}
+                      onClick={() => dispatch(addToCart(item))}
+                    >
+                      Add To Cart
+                    </button>
+                  </div>
+                </Box>
+              ))
+            )}
+
+          </Paper>
+
+        </Box>
       </Paper>
     </Layout>
   );
@@ -108,6 +146,9 @@ const styles = {
     display: 'grid', // Use grid for proper grid behavior
     gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, // Two items per row for xs and sm
     gap: 2,
+    padding: "10px",
+    position: "static",
+    overflowX: "auto"
   },
   productItem: {
     display: 'flex',
@@ -123,7 +164,7 @@ const styles = {
     },
     padding: "10px",
     alignItems: "center",
-    height:"fit-content"
+    height: "fit-content"
   },
   productsDetail: {
     display: "flex",
@@ -132,7 +173,7 @@ const styles = {
     width: "100%",
     margin: '2px',
     textAlign: "justify",
-    alignItems:"center"
+    alignItems: "center"
   },
   productTitle: {
     fontSize: 'clamp(12px, 2vw, 12px)',
@@ -163,7 +204,25 @@ const styles = {
     borderRadius: '5px',
     width: "100%",
     fontSize: 'clamp(12px, 2vw, 13px)',
-    margin:"2px"
+    margin: "2px"
   },
+  bigBox: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: "30px"
+  },
+  searchBar: {
+    marginTop: "20px",
+    border: "1px solid black",
+    borderRadius: "5px"
+  },
+  warningText:{
+    color:"#900c22",
+    textAlign:"justify",
+    width:"100%",
+    fontSize:"15px"
+  }
+
 
 };
