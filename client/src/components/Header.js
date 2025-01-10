@@ -17,7 +17,7 @@ const Header = () => {
   const handleLogOut = () => {
     localStorage.removeItem('user')
 
-    alert('You have been logged out 😭')
+    alert('You have been logged out')
     navigate('/');
   }
   const handleDrawerOpen = () => {
@@ -76,14 +76,14 @@ const Header = () => {
           {/* Icon */}
 
         </Toolbar>
-        
+
         {/* Container1 */}
       </AppBar>
 
       {/* Container2 */}
       <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose} style={styles.drawer}>
         <span style={styles.IconHeading}>Odysseus</span>
-        <p style={styles.span}>watches</p>
+        <p style={styles.span}>watches</p><hr style={styles.divider} />
         <List style={styles.IconList}>
           {menuItems.map((item, index) => (
             <ListItem button key={index} onClick={handleDrawerClose}>
@@ -103,7 +103,7 @@ export default Header;
 //Styles
 const styles = {
   appBar: {
-    background: "transparent"
+    background: "transparent",
   },
   toolbar: {
     display: "flex",
@@ -174,6 +174,7 @@ const styles = {
   },
   drawer: {
     background: "transparent",
+
   },
   IconList: {
     display: "flex",
@@ -192,7 +193,7 @@ const styles = {
     color: "#c30c2c",
     width: "100%",
     height: "8%",
-    marginTop: "10px"
+    marginTop: "30px"
   },
   iconLinks: {
     textDecoration: "none",
@@ -203,9 +204,9 @@ const styles = {
   btn: {
     background: "white",
     color: "black",
-    width: "150px",
+    width: "180px",
     border: "1px solid grey",
-    margin: "8px",
+    margin: "12px",
     '&:hover': {
       backgroundColor: '#c30c2c',
       color: "white",
@@ -214,7 +215,11 @@ const styles = {
       transition: "background-color 0.8s ease-in"
     },
     fontSize: "12px",
-    marginTop: "25px"
+    marginTop: "20px",
+  },
+  divider: {
+    color: "grey",
+    margin: "10px",
+    marginTop: 0
   }
-  
 }
