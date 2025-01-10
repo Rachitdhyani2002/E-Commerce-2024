@@ -63,7 +63,11 @@ const styles = {
   },
   successBox: {
     width: "500px",
-    margin: "20px"
+    margin: "20px",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection:"column",
+    alignItems:"center",
   },
   successIcon: {
     color: "#2cff05",
@@ -72,7 +76,9 @@ const styles = {
   },
   successMessage: {
     marginTop: "20px",
-    margin: "30px"
+    margin: "30px",
+    textAlign:"center",
+    fontSize:"12px"
   },
   successButton: {
     padding: "10px",
@@ -80,7 +86,7 @@ const styles = {
     outline: "none",
     background: '#2cff05',
     color: "white",
-    width: "180px",
+    width: "80%",
     borderRadius: "8px",
     marginBottom: "40px"
   }
