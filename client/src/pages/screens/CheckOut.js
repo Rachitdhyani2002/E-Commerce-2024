@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import { loadStripe } from '@stripe/stripe-js';
-import { Box } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 
 const Checkout = () => {
     const location = useLocation();
     const { items, totalAmount } = location.state || { items: [], totalAmount: 0 };
     const userId = JSON.parse(localStorage.getItem('user'))
     const navigate = useNavigate();
-
+    const [address,setAddress] = useState("")
     console.log(userId)
 
     // Handle payment
     const handlePayment = async () => {
+        if(!address){
+            return alert("Please Enter Your Address First")
+        }
         const stripe = await loadStripe('pk_test_51Q2XeyRvEDrF3VE5nmtz81szOS4g3xzPr4O2mCBBR57vZbzDbh3W5OEs2Ur7OICeN8m4B8WziiBfOsgEoxuDMbCy00I4pQfBKP')
-        const body = { products: items,userId:userId }
+        const body = { products: items,userId:userId,address:address}
         const headers = { "Content-Type": "application/json" }
         const response = await fetch(`${process.env.REACT_APP_API}/api/v1/products/payment`, { method: "POST", headers, body: JSON.stringify(body) })
         const session = await response.json()
@@ -35,6 +38,7 @@ const Checkout = () => {
                 <Box sx={styles.checkOutBox}>
                     <h1 style={styles.checkOutHeading}> Payment Confirmation</h1>
                     <p style={styles.checkOutText}>Click on proceed to payment button to successfully purchase the items</p>
+                    <TextField placeholder='e.g pin/city/state/country' value={address} onChange={(e)=>setAddress(e.target.value)}/>
                     {items.length > 0 ? (
                         <div style={styles.checkOutItem}>
                             <h2 style={styles.checkOutItemHeading}>Total Payable Amount: ${totalAmount}</h2>
