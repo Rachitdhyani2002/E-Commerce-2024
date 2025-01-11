@@ -20,6 +20,7 @@ const LogInForm = () => {
             if (response.status===200) {
                 console.log(response)
                 localStorage.setItem('user',JSON.stringify(response.data.user._id));
+                localStorage.setItem('role',JSON.stringify(response.data.user.role));
                 alert(`Welcome! ${response.data.user.name}`)
                 navigate('/home');
             }
