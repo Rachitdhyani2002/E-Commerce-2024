@@ -14,6 +14,8 @@ const orderSchema = new mongoose.Schema({
     totalAmount: { type: Number, required: true },
     paymentStatus: { type: String, default: 'Completed' },
     createdAt: { type: Date, default: Date.now },
+    sessionId:{type:String,required:true},
+    address:{type:String,required:true}
 });
 
 //Order Model
