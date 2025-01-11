@@ -1,6 +1,7 @@
 import productModel from '../database/models/productModel.js'
 import Stripe from 'stripe'
 import dotenv from 'dotenv';
+import { json } from 'express';
 dotenv.config()
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -39,7 +40,7 @@ export const getProductsController = async(req,res)=>{
 //Payment Integration
 export const paymentController=async(req,res)=>{
     try {
-        const { products } = req.body;
+        const { products,userId,address } = req.body;
 
         if (!products || !products.length) {
             return res.status(400).json({ message: 'No products provided' });
@@ -63,8 +64,14 @@ export const paymentController=async(req,res)=>{
             payment_method_types: ['card'],
             mode: 'payment',
             line_items: lineItems,
-            success_url: `https://e-commerce-2024-frontend.onrender.com/success?session_id={CHECKOUT_SESSION_ID}`, // Redirect after success
-            cancel_url: 'https://e-commerce-2024-frontend.onrender.com/cancel',   // Redirect after cancellation
+            success_url: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}`, 
+            cancel_url: 'http://localhost:3000/cancel', 
+            metadata:{
+                userId,
+                products: JSON.stringify(products),
+                address:JSON.stringify(address)
+            },
+        
         });
 
         res.json({ id: session.id });
@@ -74,3 +81,5 @@ export const paymentController=async(req,res)=>{
     }
 
 }
+
+
