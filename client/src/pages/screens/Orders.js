@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import axios from 'axios';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Typography, Box } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Typography, Box, Button } from '@mui/material';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -34,7 +34,23 @@ const Orders = () => {
   };
 
   if (loading) return <CircularProgress />;
-  if (error) return <Typography color="error">{error}</Typography>;
+  if (error) return <Typography color="error">{error.message}</Typography>;
+
+  const handleCancelOrder=async(id)=>{
+     const input = prompt("Are you sure? Type Y for yes and N for no");
+     if(input === "Y"){
+         try{
+            const result = await axios.delete(`${process.env.REACT_APP_API}/api/v1/orders/delete-order/${id}`)
+            if(result.status===200){
+               alert(result.data.message);
+               fetchUserOrders();
+            }
+         }
+         catch(error){
+             alert("Failed")
+         }
+     }
+  }
 
   return (
     <Layout>
@@ -43,10 +59,10 @@ const Orders = () => {
           Your Orders
         </Typography>
 
-        {orders.length === 0 ? (
+        {orders.length ===0 ? (
           <Typography>No orders found.</Typography>
         ) : (
-          <Box sx={{ overflowY: 'auto' }}>  {/* Add scroll on small screens */}
+          <Box sx={{ overflowY: 'auto',height:"100vh" }}>  {/* Add scroll on small screens */}
             <TableContainer component={Paper} style={styles.tableContainer}>
               <Table sx={{ minWidth: 650 }} aria-label="orders table">
                 <TableHead >
@@ -56,6 +72,7 @@ const Orders = () => {
                     <TableCell style={styles.tableCell}>Total Amount</TableCell>
                     <TableCell style={styles.tableCell}>Payment Status</TableCell>
                     <TableCell style={styles.tableCell}>Order Date</TableCell>
+                    <TableCell style={styles.tableCell}>Address</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -72,6 +89,8 @@ const Orders = () => {
                       <TableCell style={styles.tableDataCell}>₹{order.totalAmount}</TableCell>
                       <TableCell style={styles.tableDataCellPayment}>{order.paymentStatus}</TableCell>
                       <TableCell style={styles.tableDataCell}>{new Date(order.createdAt).toLocaleDateString()}</TableCell>
+                      <TableCell style={styles.tableDataCell}>{order.address}</TableCell>
+                      <TableCell><Button onClick={()=>handleCancelOrder(order._id)} sx={styles.cancelOrder}>Cancel Order</Button></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -91,14 +110,15 @@ const styles = {
   container: {
     padding: "20px",
     margin: "20px",
-    height: "100vh"
+    minHeight :"100vh"
   },
   heading: {
     textAlign: "center",
     fontSize: "20px"
   },
   tableContainer: {
-    padding: "10px"
+    padding: "10px",
+    height:"100vh"
   },
   tableCell: {
     fontSize: "15px",
@@ -116,5 +136,9 @@ const styles = {
     color: "#2cff05",
     fontSize: "13px",
     textAlign: "center",
+  },
+  cancelOrder:{
+    color:"white",
+    background:"#900c22"
   }
 }
