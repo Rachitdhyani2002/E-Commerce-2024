@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Box, Paper } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -8,29 +8,35 @@ const Success = () => {
 
   //UseNavigate Hook
   const navigate = useNavigate();
+  const [orderSaved, setOrderSaved] = useState(false);
 
   //Getting Session Id From Url Query String 
   const [searchParams] = useSearchParams()
-  const sessionId   = searchParams.get('session_id')
+  const sessionId = searchParams.get('session_id')
 
   //Saving The Order If There Is Session Id
-  useEffect(()=>{
-    const saveOrder=async()=>{
-      try{
-        const response = await axios.post(`${process.env.REACT_APP_API}/api/v1/orders/save-orders`,{sessionId},{ headers: { 'Content-Type': 'application/json' }})
-        if(response.status!==200){
-          console.log("Error while saving order");
-        }else{
-          console.log(response)
-        }
+  useEffect(() => {
+    if (sessionId) {
+      saveOrder();
+    } else {
+      console.error("No session ID found");
+    }
+  }, [sessionId])
+
+  const saveOrder = async () => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API}/api/v1/orders/save-orders`, { sessionId }, { headers: { 'Content-Type': 'application/json' } })
+      if (response.status !== 200) {
+        console.error("Error while saving order");
+      } else {
+        console.log(response);
+        setOrderSaved(true);
       }
-      catch(error){
-        console.error(error)
-      }
+    }
+    catch (error) {
+      console.error(error)
+    }
   }
-  // if(sessionId){saveOrder()}
-      sessionId?saveOrder():console.error("No session id found")
-  },[sessionId])
 
   //Navigate Home On Success
   const handleSubmit = () => { navigate("/home") }
@@ -58,7 +64,7 @@ const styles = {
   successContainer: {
     display: "flex",
     justifyContent: "center",
-    alignItems:"center",
+    alignItems: "center",
     marginTop: "80px"
   },
   successBox: {
@@ -66,8 +72,8 @@ const styles = {
     margin: "20px",
     display: "flex",
     justifyContent: "center",
-    flexDirection:"column",
-    alignItems:"center",
+    flexDirection: "column",
+    alignItems: "center",
   },
   successIcon: {
     color: "#2cff05",
@@ -75,10 +81,10 @@ const styles = {
     margin: '30px'
   },
   successMessage: {
-    marginTop: "20px",
+    marginTop: "10px",
     margin: "30px",
-    textAlign:"center",
-    fontSize:"12px"
+    textAlign: "center",
+    fontSize: "12px"
   },
   successButton: {
     padding: "10px",
@@ -89,5 +95,6 @@ const styles = {
     width: "80%",
     borderRadius: "8px",
     marginBottom: "40px"
+
   }
 }
