@@ -10,6 +10,8 @@ export const saveOrderController = async (req, res) => {
     try {
         const { sessionId } = req.body
 
+        console.log(sessionId)
+
         // Retrieve session from Stripe
         const session = await stripe.checkout.sessions.retrieve(sessionId);
 
@@ -18,6 +20,8 @@ export const saveOrderController = async (req, res) => {
             products: JSON.parse(session.metadata.products), // Parsed products
             totalAmount: session.amount_total / 100, // Convert from cents to standard format
             paymentStatus: session.payment_status,
+            sessionId:sessionId,
+            address:JSON.parse(session.metadata.address)
         })
 
         const saveOrder = await newOrder.save()
@@ -49,4 +53,19 @@ export const getOrderController = async (req, res) => {
 
     }
 
+}
+
+//Delete Order Controller
+export const deleteOrderController = async(req,res)=>{
+       try{
+             const {id} = req.params;
+             const result = await OrderModel.deleteOne({_id:id});
+             if(result.deletedCount === 0){
+                return res.status(404).send({ success: "false", message: " Order not found" })
+             }
+             res.status(200).send({ success: "true", message: "Order successfully deleted" })
+       }
+       catch(err){
+        res.status(500).send({ success: "false", message: "Deleting Order Failed", error:err.message })
+       }
 }
