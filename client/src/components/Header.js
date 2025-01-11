@@ -9,14 +9,14 @@ import { useSelector } from 'react-redux';
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
-
+  const role = JSON.parse(localStorage.getItem('role'))
   const navigate = useNavigate()
   const numberOfProducts = useSelector(state => state.cart.totalQuantity)
 
 
   const handleLogOut = () => {
     localStorage.removeItem('user')
-
+    localStorage.removeItem('role')
     alert('You have been logged out')
     navigate('/');
   }
@@ -35,7 +35,7 @@ const Header = () => {
       { text: 'ABOUT US', path: '/about' },
       { text: `CART (${numberOfProducts})`, path: '/cart' },
       { text: `MY ORDERS`, path: '/orders' },
-      ...(user.role === 1 ? [{ text: 'ADMIN', path: '/admin' }] : [])
+      ...(role === 1 ? [{ text: 'ADMIN', path: '/admin' }] : [])
     ]
     : [
       { text: 'SIGN UP', path: '/register' },
